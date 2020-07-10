@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_api',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'django_mysql',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'exodus.wsgi.application'
 
+
+REST_FRAMEWORK = {
+    "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S"
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

@@ -6,7 +6,7 @@ import re
 import hashlib
 
 WATCH = '5df33d56a53e8812d783328d4704ac0e89bd6ab9cfef1fd2d2cba0f5b84b13a7'
-
+WATCH = 'S'
 def get_html(url):
     return unescape(requests.get(url).content.decode('utf-8'))
 
@@ -47,5 +47,8 @@ def main():
     for code in country_codes:
         if 'NOT FOUND' in code:
             print(code)
+    for country in country_codes:
+        if country != 'JPN':
+            set_flight_status(country,'JPN','F')
 
 main()

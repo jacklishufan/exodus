@@ -44,3 +44,35 @@ class VisaStatusDetailAPIView(mixins.UpdateModelMixin, mixins.DestroyModelMixin,
     serializer_class = VisaStatusSerializer
     # lookup_field = 'ticker'
     queryset = VisaStatus.objects.filter(out_dt=None)
+
+class FlightStatusListAPIView(generics.ListAPIView):
+    serializer_class = FlightStatusSerializer
+
+    def get_queryset(self):
+        request = self.request
+        qs = FlightStatus.objects.filter()
+        from_region = request.GET.get('from_region')
+        to_region = request.GET.get('to_region')
+        if from_region:
+            qs = qs.filter(from_country=from_region)
+        if to_region:
+            qs = qs.filter(to_country=to_region)
+        return qs
+
+class BorderPolicyListAPIView(generics.ListAPIView):
+    serializer_class = BorderPolicySerializer
+
+    def get_queryset(self):
+        request = self.request
+        qs = BorderPolicy.objects.filter()
+        region = request.GET.get('region')
+        if region:
+            qs = qs.filter(country=region)
+        return qs
+
+
+class FlightStatusProdAPIView(FlightStatusListAPIView):
+    serializer_class = FlightStatusProdSerializer
+
+class BorderPolicyProdAPIView(BorderPolicyListAPIView):
+    serializer_class = BorderPolicyProdSerializer
